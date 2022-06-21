@@ -1,0 +1,15 @@
+@use '../_lib' as lib;
+
+.header {
+    display: flex;
+    background-color: aqua;
+    min-height: 2.5rem;
+    height: lib.$header-height-desktop;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+
+    .header__title {
+        font-size: 3em;
+    }
+}

@@ -1,0 +1,8 @@
+@use '../_lib' as lib;
+
+.main {
+    height: calc(100vh - lib.$header-height-desktop );
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
