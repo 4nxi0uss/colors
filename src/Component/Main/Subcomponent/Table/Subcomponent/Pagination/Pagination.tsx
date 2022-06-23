@@ -1,9 +1,9 @@
 import './Pagination.scss'
 
-import { useGetProductsQuery } from '../../../../Redux/ColorsApi/ProductsApi';
+import { useGetProductsQuery } from '../../../../../../Redux/ColorsApi/ProductsApi';
 
-import { useAppDispatch, useAppSelector } from '../../../../Redux/Hook/Hook';
-import { decrementPageNumber, incrementPageNumber, setPageNumber } from '../../../../Redux/Slice/SearchSlice';
+import { useAppDispatch, useAppSelector } from '../../../../../../Redux/Hook/Hook';
+import { decrementPageNumber, incrementPageNumber, setPageNumber } from '../../../../../../Redux/Slice/SearchSlice';
 
 const Pagination = () => {
 

@@ -3,7 +3,7 @@ import './Table.scss'
 import { useGetProductsQuery } from '../../../../Redux/ColorsApi/ProductsApi';
 import { useAppSelector } from '../../../../Redux/Hook/Hook';
 
-import Pagination from '../Pagination/Pagination';
+import Pagination from './Subcomponent/Pagination/Pagination';
 
 const Table = () => {
 
