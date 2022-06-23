@@ -5,21 +5,14 @@ export const productsApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'https://reqres.in/api/products' }),
     tagTypes: ["Page"],
     endpoints: (builder) => ({
-        getProducts: builder.query<any, number>({
-            query: (page) => ({
-                url: `/?page=${page}&per_page=5`,
+        getProducts: builder.query<any, any>({
+            query: ({ page, id = false }) => ({
+                url: `/?page=${page}&per_page=5${Boolean(id) === true && `&id=${id}`}`,
                 method: 'GET',
             }),
             providesTags: ["Page"]
         }),
-        nextPage: builder.mutation<any, number>({
-            query: (page) => ({
-                url: `/?page=${page}&per_page=5`,
-                method: 'GET',
-            }),
-            invalidatesTags: ["Page"]
-        }),
     }),
 })
 
-export const { useGetProductsQuery, useNextPageMutation } = productsApi
+export const { useGetProductsQuery } = productsApi

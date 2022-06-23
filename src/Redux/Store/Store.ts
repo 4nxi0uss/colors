@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import { productsApi } from '../ColorsApi/ProductsApi'
+import pageNumberSlice from '../Slice/SearchSlice'
 
 export const store = configureStore({
     reducer: {
+        page: pageNumberSlice,
         [productsApi.reducerPath]: productsApi.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(productsApi.middleware),

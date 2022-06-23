@@ -1,23 +1,21 @@
-import { useState } from 'react';
-
 import './Table.scss'
 
-import { useGetProductsQuery, useNextPageMutation } from '../../../../Redux/ColorsApi/ProductsApi';
+import { useGetProductsQuery } from '../../../../Redux/ColorsApi/ProductsApi';
+import { useAppSelector } from '../../../../Redux/Hook/Hook';
+
+import Pagination from '../Pagination/Pagination';
 
 const Table = () => {
 
-    const [pageNumber, setPageNumber] = useState<number>(2);
+    const pageNumber = useAppSelector(state => state.page.pageNumber);
+    const search = useAppSelector(state => state.page.search);
 
-    const { data, error, isLoading, isError } = useGetProductsQuery(pageNumber);
-
-    const [updatePages, result] = useNextPageMutation();
-
-    console.log("dara", data)
-    console.log("rws", result)
+    const { data, error, isLoading, isError } = useGetProductsQuery({ page: pageNumber, id: search === '' ? false : search });
+    console.log(!isLoading && data)
 
     isError && console.warn(error)
 
-    const showTableColors = () => !isLoading && data?.data.map((el: any) => (
+    const showTableColorsArr = () => !isLoading && data?.data.map((el: any) => (
         <tr key={el.id} style={{ backgroundColor: el.color }}>
             <td>{el.id}</td>
             <td>{el.name}</td>
@@ -25,29 +23,14 @@ const Table = () => {
         </tr>
     ));
 
-    const handleChangePagePrev = (e: any) => {
-        e.preventDefault()
+    const showTableColorsObj = () => !isLoading && [data?.data].map((el: any) => (
+        <tr key={el.id + 1} style={{ backgroundColor: el.color }}>
+            <td>{el.id}</td>
+            <td>{el.name}</td>
+            <td>{el.year}</td>
+        </tr>
+    ));
 
-        if (pageNumber <= 1) {
-            setPageNumber(1);
-        } else {
-            setPageNumber((state) => (state -= 1))
-        }
-    }
-
-    const handleChangePageNext = (e: any) => {
-        e.preventDefault()
-
-        if (pageNumber >= data?.total_pages) {
-            setPageNumber(data?.total_pages);
-        } else {
-            setPageNumber((state) => (state += 1))
-        }
-    }
-
-    const paginationDiv = () => { updatePages(3) };
-
-    console.log(pageNumber);
     return (
         <section>
             <table className='table'>
@@ -59,17 +42,10 @@ const Table = () => {
                     </tr>
                 </thead>
                 <tbody className='table__body'>
-                    {showTableColors()}
+                    {search === '' ? showTableColorsArr() : showTableColorsObj()}
                 </tbody>
             </table>
-            <div className='pagination'>
-                <button className='pagination__btn pagination__btn--prev' onClick={handleChangePagePrev}>Prev</button>
-                <div>1</div>
-                <div>2</div>
-                <div>3</div>
-                <button className='pagination__btn pagination__btn--next' onClick={handleChangePageNext}>Next</button>
-                <button className='pagination__next' onClick={paginationDiv}>test</button>
-            </div>
+            {search === '' && <Pagination />}
         </section>
     )
 }

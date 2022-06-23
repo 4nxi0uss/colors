@@ -1,16 +1,19 @@
+@use '../../../_lib' as lib;
+
 .search {
     display: flex;
     height: 10vh;
     justify-content: center;
     align-items: center;
 
-    .search__input {
+    &__input {
         width: 30vw;
         font-size: 1.5rem;
         margin-right: 1rem;
+        padding: .2vw;
     }
 
-    .search__btns-container {
+    &__btn-container {
         display: flex;
         gap: 1rem;
 
@@ -19,27 +22,39 @@
             font-size: 1.1rem;
             border-radius: 13px;
             background-color: transparent;
-            border: 1px solid rgba(172, 255, 47, 0.664);
-        }
-
-        .search__btn--search {
-            background-color: rgba(172, 255, 47, 0.664);
-            transition: .3s;
-        }
-
-        .search__btn--search:hover {
-            background-color: transparent;
-
-        }
-
-        .search__btn--clean {
-            background-color: transparent;
-            transition: .3s;
-        }
-
-        .search__btn--clean:hover {
-            background-color: rgba(255, 0, 0, 0.562);
             border: 1px solid transparent;
+            cursor: pointer;
+
+
+            &--search {
+                background-color: lib.$secondary-clr;
+                transition: .3s;
+
+
+                &:hover {
+                    background-color: transparent;
+                    border: 1px solid lib.$secondary-clr;
+                }
+
+                &:active {
+                    background-color: rgba(0, 119, 255, 0.808);
+                }
+            }
+
+            &--clean {
+                background-color: transparent;
+                border: 1px solid rgba(255, 0, 0, 0.562);
+                transition: .3s;
+
+                &:hover {
+                    background-color: rgba(255, 0, 0, 0.562);
+                    border: 1px solid transparent;
+                }
+
+                &:active {
+                    background-color: red;
+                }
+            }
         }
     }
 
