@@ -45,10 +45,10 @@ const Search = () => {
     const handleSearchOnclick = () => {
         if (!isNaN(Number(inputRef?.current?.value)) && Number(inputRef?.current?.value) !== 0) {
             dispach(searchById(`${Number(inputRef?.current?.value)}`))
-            // setSearchParamas({
-            //     page: `${pageNumber}`,
-            //     id: inputRef?.current?.value,
-            // })
+            setSearchParamas({
+                page: `${pageNumber}`,
+                id: `${inputRef?.current?.value}`,
+            })
         }
     }
 
