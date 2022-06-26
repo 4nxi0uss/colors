@@ -7,7 +7,7 @@ export const productsApi = createApi({
     endpoints: (builder) => ({
         getProducts: builder.query<any, any>({
             query: ({ page, id = false }) => ({
-                url: `/?page=${page}&per_page=5${Boolean(id) === true && `&id=${id}`}`,
+                url: `/?page=${page}&per_page=5&id=${id}`,
                 method: 'GET',
             }),
             providesTags: ["Page"]

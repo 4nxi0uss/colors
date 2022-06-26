@@ -23,74 +23,52 @@
 
     &__body>tr {
         box-shadow: 0px 1px 2px 0px grey;
-    }
 
-    &__body>tr:hover {
-        background-color: rgb(123, 191, 255);
-    }
-
-    &__body>tr>td {
-        text-align: center;
-        padding: 1rem;
-        font-size: 1.2rem;
-    }
-}
-
-.pagination {
-    display: flex;
-    flex-direction: row;
-    gap: .5rem;
-    justify-content: center;
-    margin-top: 2rem;
-
-    &__btn {
-
-        padding: .3vw .5vw;
-        border: 1px solid transparent;
-        border-radius: lib.$border-btn-radius ;
-        background-color: transparent;
-        font-size: medium;
-        cursor: pointer;
-
-        &--disabled {
-            padding: .3vw .5vw;
-            border: 1px solid transparent;
-            border-radius: lib.$border-btn-radius ;
-            background-color: transparent;
-            font-size: medium;
-            cursor: pointer;
-        }
-
-        &:hover {
-            background-color: lib.$paginate-clr;
-            color: lib.$paginate-clr-letter;
+        &>td {
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.2rem;
         }
     }
 
-    &__list {
-        display: flex;
-        flex-direction: row;
-        gap: .5vw;
-        cursor: pointer;
+    .table__body--warn {
+        position: relative;
+        width: 33vw;
+        text-transform: uppercase;
+        font-size: 1.4rem;
+        color: red;
+        transform: translateX(-50%);
+        left: 50%;
+    }
 
-        &__item {
-            list-style: none;
-            padding: .3vw .5vw;
-            transition: .3s;
-            font-size: medium;
-            border: 1px solid transparent;
-            border-radius: 5px;
+    @keyframes spinner {
+        0% {
+            transform: translate3d(-50%, -50%, 0) rotate(0deg);
+        }
 
-            &:hover {
-                border: 1px solid lib.$paginate-clr;
-                background-color: lib.$paginate-clr;
-                color: lib.$paginate-clr-letter;
-            }
-
-            &--active {
-                background-color: lib.$paginate-clr;
-                color: lib.$paginate-clr-letter;
-            }
+        100% {
+            transform: translate3d(-50%, -50%, 0) rotate(360deg);
         }
     }
+
+    .table__body--spinner {
+        height: 10vw;
+
+        &::before {
+            animation: 1.5s linear infinite spinner;
+            animation-play-state: inherit;
+            border: solid 1rem #cfd0d1;
+            border-bottom-color: lib.$main-clr ;
+            border-radius: 50%;
+            content: " ";
+            height: 5vw;
+            width: 5vw;
+            position: absolute;
+            // top: 100%;
+            left: 50%;
+            transform: translate3d(-50%, -50% 0);
+            will-change: transform;
+        }
+    }
+
 }

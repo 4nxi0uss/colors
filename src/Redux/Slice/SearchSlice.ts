@@ -2,12 +2,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface CounterState {
     pageNumber: number,
-    search: string,
+    search: {
+        searchedId: string,
+        isSearch: boolean
+    },
 }
 
 const initialState: CounterState = {
     pageNumber: 1,
-    search: '',
+    search: {
+        searchedId: '',
+        isSearch: false
+    },
 }
 
 export const pageNumberSlice = createSlice({
@@ -24,11 +30,16 @@ export const pageNumberSlice = createSlice({
             state.pageNumber = action.payload;
         },
         searchById: (state, action: PayloadAction<string>) => {
-            state.search = action.payload;
+            state.search.searchedId = action.payload;
+            state.search.isSearch = true;
+        },
+        cleanSearch: (state) => {
+            state.search.searchedId = '';
+            state.search.isSearch = false;
         }
     },
 })
 
-export const { setPageNumber, incrementPageNumber, decrementPageNumber, searchById } = pageNumberSlice.actions
+export const { setPageNumber, incrementPageNumber, decrementPageNumber, searchById, cleanSearch } = pageNumberSlice.actions
 
 export default pageNumberSlice.reducer

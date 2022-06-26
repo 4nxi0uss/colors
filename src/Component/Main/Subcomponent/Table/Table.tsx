@@ -8,10 +8,9 @@ import Pagination from './Subcomponent/Pagination/Pagination';
 const Table = () => {
 
     const pageNumber = useAppSelector(state => state.page.pageNumber);
-    const search = useAppSelector(state => state.page.search);
+    const { searchedId, isSearch } = useAppSelector(state => state.page.search);
 
-    const { data, error, isLoading, isError } = useGetProductsQuery({ page: pageNumber, id: search === '' ? false : search });
-    console.log(!isLoading && data)
+    const { data, error, isLoading, isError } = useGetProductsQuery({ page: pageNumber, id: !isSearch ? '' : searchedId });
 
     isError && console.warn(error)
 
@@ -30,6 +29,8 @@ const Table = () => {
             <td>{el.year}</td>
         </tr>
     ));
+    console.log(!isSearch)
+    console.log(data?.data)
 
     return (
         <section>
@@ -42,10 +43,24 @@ const Table = () => {
                     </tr>
                 </thead>
                 <tbody className='table__body'>
-                    {search === '' ? showTableColorsArr() : showTableColorsObj()}
+                    {isLoading
+                        ? <tr >
+                            <td className='table__body--spinner'></td>
+                        </tr>
+                        : Boolean(pageNumber >= data?.total_pages)
+                            ? <tr>
+                                <td className='table__body--warn'>Page not found, please try another one</td>
+                            </tr>
+                            : isError
+                                ? <tr>
+                                    <td className='table__body--warn'>Color not foud, please search another one!</td>
+                                </tr>
+                                : !isSearch
+                                    ? showTableColorsArr()
+                                    : showTableColorsObj()}
                 </tbody>
             </table>
-            {search === '' && <Pagination />}
+            {!isSearch && <Pagination />}
         </section>
     )
 }
