@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PageState } from '../Types/Types';
 
-export interface CounterState {
-    pageNumber: number,
-    search: {
-        searchedId: string,
-        isSearch: boolean
-    },
-}
-
-const initialState: CounterState = {
+//initial state
+const initialState: PageState = {
     pageNumber: 1,
     search: {
         searchedId: '',

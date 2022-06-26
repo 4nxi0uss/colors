@@ -6,15 +6,17 @@ import { useAppSelector } from '../../../../Redux/Hook/Hook';
 import Pagination from './Subcomponent/Pagination/Pagination';
 
 const Table = () => {
-
+    //redux state
     const pageNumber = useAppSelector(state => state.page.pageNumber);
     const { searchedId, isSearch } = useAppSelector(state => state.page.search);
 
+    //redux api
     const { data, error, isLoading, isError } = useGetProductsQuery({ page: pageNumber, id: !isSearch ? '' : searchedId });
 
     isError && console.warn(error)
 
-    const showTableColorsArr = () => !isLoading && data?.data.map((el: any) => (
+    //fun showing all paginated data 
+    const showTableColorsArr = () => !isLoading && data?.data.map((el) => (
         <tr key={el.id} style={{ backgroundColor: el.color }}>
             <td>{el.id}</td>
             <td>{el.name}</td>
@@ -22,15 +24,14 @@ const Table = () => {
         </tr>
     ));
 
+    //fun showing one paginated data
     const showTableColorsObj = () => !isLoading && [data?.data].map((el: any) => (
-        <tr key={el.id + 1} style={{ backgroundColor: el.color }}>
-            <td>{el.id}</td>
-            <td>{el.name}</td>
-            <td>{el.year}</td>
+        <tr key={el?.id + 1} style={{ backgroundColor: el?.color }}>
+            <td>{el?.id}</td>
+            <td>{el?.name}</td>
+            <td>{el?.year}</td>
         </tr>
     ));
-    console.log(!isSearch)
-    console.log(data?.data)
 
     return (
         <section>
@@ -47,7 +48,7 @@ const Table = () => {
                         ? <tr >
                             <td className='table__body--spinner'></td>
                         </tr>
-                        : Boolean(pageNumber >= data?.total_pages)
+                        : Boolean(pageNumber > Number(data?.total_pages))
                             ? <tr>
                                 <td className='table__body--warn'>Page not found, please try another one</td>
                             </tr>
@@ -55,7 +56,7 @@ const Table = () => {
                                 ? <tr>
                                     <td className='table__body--warn'>Color not foud, please search another one!</td>
                                 </tr>
-                                : !isSearch
+                                : !isSearch && data?.data?.length !== 1
                                     ? showTableColorsArr()
                                     : showTableColorsObj()}
                 </tbody>
