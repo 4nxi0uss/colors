@@ -11,11 +11,12 @@ const Search = () => {
 
     const [search, setSearch] = useState<string>(searchParams.get('id') ?? '');
 
+    //redux state
+    const pageNumber = useAppSelector(state => state.page.pageNumber);
+
     const inputRef = useRef<HTMLInputElement>(null)
 
     const dispach = useAppDispatch();
-
-    const pageNumber = useAppSelector(state => state.page.pageNumber);
 
     useEffect(() => {
         //geting data from url
@@ -61,10 +62,10 @@ const Search = () => {
 
     //clean fun
     const handleCleanInput = () => {
-        dispach(cleanSearch())
+        dispach(cleanSearch(1))
         setSearch('')
         setSearchParamas({
-            page: `${searchParams.get('page') !== '0' ? searchParams.get('page') ?? 1 : 1}`,
+            page: `${1}`,
             id: '',
         })
     }

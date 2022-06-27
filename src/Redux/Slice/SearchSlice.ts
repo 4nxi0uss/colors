@@ -27,9 +27,10 @@ export const pageNumberSlice = createSlice({
             state.search.searchedId = action.payload;
             state.search.isSearch = true;
         },
-        cleanSearch: (state) => {
+        cleanSearch: (state, action: PayloadAction<number>) => {
             state.search.searchedId = '';
             state.search.isSearch = false;
+            state.pageNumber = action.payload
         }
     },
 })

@@ -16,7 +16,7 @@ const Table = () => {
     isError && console.warn(error)
 
     //fun showing all paginated data 
-    const showTableColorsArr = () => !isLoading && data?.data.map((el) => (
+    const showTableColorsArr = () => !isLoading && data?.data.map((el: { color: string; id: number; name: string; year: number; }) => (
         <tr key={el.id} style={{ backgroundColor: el.color }}>
             <td>{el.id}</td>
             <td>{el.name}</td>
@@ -56,7 +56,7 @@ const Table = () => {
                                 ? <tr>
                                     <td className='table__body--warn'>Color not foud, please search another one!</td>
                                 </tr>
-                                : !isSearch && data?.data?.length !== 1
+                                : !isSearch
                                     ? showTableColorsArr()
                                     : showTableColorsObj()}
                 </tbody>
