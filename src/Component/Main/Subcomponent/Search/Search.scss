@@ -3,8 +3,10 @@
 .search {
     display: flex;
     flex-direction: row;
+    position: relative;
     height: 10vh;
     margin-top: 1rem;
+    padding-top: 1rem;
     justify-content: center;
     align-items: center;
 
@@ -63,6 +65,8 @@
 @media (max-width: 768px) {
     .search {
         flex-direction: column;
+        position: relative;
+        padding-top: 2rem;
 
         &__input {
             width: 50vw;
