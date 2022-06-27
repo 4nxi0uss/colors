@@ -58,3 +58,19 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .pagination {
+        &__btn {
+            padding: .3vw .5rem;
+        }
+
+        &__list {
+            gap: 1rem;
+
+            &__item {
+                padding: .2rem .4rem;
+            }
+        }
+    }
+}
