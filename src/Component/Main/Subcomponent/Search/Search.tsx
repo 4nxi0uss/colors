@@ -55,6 +55,7 @@ const Search = () => {
 
     //adding data to state from input
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        //more appropriate way to do this it would be set type to number  
         if (!isNaN(Number(e.target.value))) {
             setSearch(`${Number(e.target.value)}`)
         }
